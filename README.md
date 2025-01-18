@@ -1,5 +1,5 @@
-# Cilerba's Pokémon ACE Scripts
-Collection of ACE scripts for Pokémon games. (Currently only available for ENG Pokémon Red and Blue)
+# Pokémon ACE Scripts
+Collection of ACE scripts for Pokémon games by collaborators of the repo. (Currently only available for ENG Pokémon Red and Blue)
 
 These are intended to be used with [TimoVM's RAM Writer (TimOS)](https://glitchcity.wiki/wiki/Guides:Nickname_Writer_Codes#Installing_a_RAM_writer_environment_(TimOS)) after [setting up the SRAM Glitch](https://glitchcity.wiki/wiki/Guides:TimoVM%27s_gen_1_ACE_setups) in your Generation I game.
 
@@ -17,7 +17,12 @@ Code for the MSPHijackInstaller lives in slots 19 and 20 in the currently loaded
 
 <strong>Do not use save editing tools like PKHeX! This will break the shiny indicator and potentially damage the entire ACE setup.</strong>
 
-Please let me know if you run into any issues!
+Please let any of us know of any issues that you may encounter with these scripts!
+
+## Collaborators
+
+* [Cilerba](https://bsky.app/profile/cilerba.com)
+* [Gears of Progress](https://x.com/GearsProgress)
 
 ## Special Thanks
 * [NoraInTheFuture](https://x.com/norainthefuture)
