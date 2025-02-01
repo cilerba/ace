@@ -43,6 +43,7 @@ start:
     ; Fallthrough
 
 .installed
+	jr .checkForAnimation
 	ld a, [$D057]		; wIsInBattle
 	and a
 	jr z, .statusCheck	; Skip to status screen check if battle check fails
@@ -88,28 +89,73 @@ start:
 	; Attack
 	ld a, [hl]
 	and SHINY_ATK_MASK << 4
-	ret z               ; Not shiny
+	;ret z               ; Not shiny
 
 	; Defense
 	ld a, [hli]
 	and %1111
 	cp SHINY_DEF_DV
-	ret nz              ; Not shiny
+	;ret nz              ; Not shiny
 
 	; Speed
 	ld a, [hl]
 	and %1111 << 4
 	cp SHINY_SPD_DV << 4
-	ret nz              ; Not shiny
+	;ret nz              ; Not shiny
 
 	; Special
 	ld a, [hl]
 	and %1111
 	cp SHINY_SPC_DV
-	ret nz              ; Not shiny
+	;ret nz              ; Not shiny
 
 	; Shiny (!)
 	ld l, c
 	ld h, b
 	ld [hl], $E7 ; !
 	ret
+
+
+.checkForAnimation
+	; this checks if it should replace the animation pointer in the stack
+	; runs code at DA80 if true
+	ld hl, $DFF1
+	ld a, $F4
+	cp a, [hl]
+	jr nz, .checkForAnimation_exit
+	inc hl
+	ld a, $40
+	cp a, [hl]
+	jr nz, .checkForAnimation_exit
+	ld [hl], $D4 ; Points to .shinyAnimation
+	dec hl
+	ld [hl], $BE ; Points to .shinyAnimation
+	ld a, $00
+	ld [$FFF3], a
+	.checkForAnimation_exit
+	ret
+
+
+.shinyAnimation
+	ld a, $1E
+	call $35BC
+	ld a, $02
+	ld hl, $D4D3 ; This is the location of the animation data
+	call $4106
+	ld a, $0F
+	call $35BC
+	jp $40F7
+
+;.AnimationData
+	;	not sure how to add this as just raw bytes... a macro maybe?
+	;	place at D4D3 for now
+;	$FD
+;	$01
+;	$41
+;	$01
+;	$3F
+;	$E1
+;	$01
+;	$FC
+;	$01
+;	$FF
